@@ -12,8 +12,6 @@ import by.bsu.mmf.badthrowgame.transferobject.SCEnteringAccount;
 import by.bsu.mmf.badthrowgame.transferobject.ServerClientTransfer;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -118,149 +116,128 @@ public class ClientHandlerGUI extends Thread {
 
         throwButtonVsComputer.setVisible(false);
 
-        enterAccount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String login = loginField.getText();
-                char[] password = passwordField.getPassword();
-                enterAccount(login, password);
-            }
+        enterAccount.addActionListener(e -> {
+            String login = loginField.getText();
+            char[] password = passwordField.getPassword();
+            enterAccount(login, password);
         });
 
-        sendMessageButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                sendMessage();
-            }
+        sendMessageButton.addActionListener(e -> {
+            sendMessage();
+
         });
 
-        registerNewAccountButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setView(ViewTypes.REGISTER_VIEW);
-            }
+        registerNewAccountButton.addActionListener(e -> {
+            setView(ViewTypes.REGISTER_VIEW);
+
         });
 
-        backToSigningInButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setView(ViewTypes.LOGIN_VIEW);
-            }
+        backToSigningInButton.addActionListener(e -> {
+
+            setView(ViewTypes.LOGIN_VIEW);
+
         });
 
-        registerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (Arrays.equals(passwordRegisterField.getPassword(), passwordConfirmField.getPassword())) {
-                    registerAccount(nameRegisterField.getText(), loginRegisterField.getText(), passwordRegisterField.getPassword());
-                } else {
-                    passwordRegisterField.setText("");
-                    passwordConfirmField.setText("");
-                }
+        registerButton.addActionListener(e -> {
+
+            if (Arrays.equals(passwordRegisterField.getPassword(), passwordConfirmField.getPassword())) {
+                registerAccount(nameRegisterField.getText(), loginRegisterField.getText(), passwordRegisterField.getPassword());
+            } else {
+                passwordRegisterField.setText("");
+                passwordConfirmField.setText("");
             }
+
         });
 
-        enterTheGameButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                enterMultiplayer();
+        enterTheGameButton.addActionListener(e -> {
 
-                dicesValues.setText("");
-            }
+            enterMultiplayer();
+
+            dicesValues.setText("");
+
         });
 
-        exitFromTheGameButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exitMultiplayer();
+        exitFromTheGameButton.addActionListener(e -> {
+            exitMultiplayer();
 
-                enterTheGameButton.setVisible(true);
-                exitFromTheGameButton.setVisible(false);
+            enterTheGameButton.setVisible(true);
+            exitFromTheGameButton.setVisible(false);
 
-                playersList.setText("");
-                spectatorsList.setText("");
+            playersList.setText("");
+            spectatorsList.setText("");
 
-                readyButton.setVisible(false);
-                plusBet.setVisible(false);
-                minusBet.setVisible(false);
-                throwButton.setVisible(false);
-                totalField.setVisible(false);
+            readyButton.setVisible(false);
+            plusBet.setVisible(false);
+            minusBet.setVisible(false);
+            throwButton.setVisible(false);
+            totalField.setVisible(false);
 
-                betLabel.setVisible(false);
-                betLabel1.setVisible(false);
-            }
+            betLabel.setVisible(false);
+            betLabel1.setVisible(false);
+
         });
 
-        plusBet.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                changeBet(String.valueOf(Integer.parseInt(betLabel.getText()) + 50));
-            }
+        plusBet.addActionListener(e -> {
+
+            changeBet(String.valueOf(Integer.parseInt(betLabel.getText()) + 50));
+
         });
 
-        minusBet.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (Integer.parseInt(betLabel.getText()) > 50)
-                    changeBet(String.valueOf(Integer.parseInt(betLabel.getText()) - 50));
-            }
+        minusBet.addActionListener(e -> {
+
+            if (Integer.parseInt(betLabel.getText()) > 50)
+                changeBet(String.valueOf(Integer.parseInt(betLabel.getText()) - 50));
+
         });
 
-        readyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setReady();
-            }
+        readyButton.addActionListener(e -> {
+
+            setReady();
+
         });
 
-        refreshButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                refreshProfileInfo();
-            }
+        refreshButton.addActionListener(e -> {
+
+            refreshProfileInfo();
+
         });
 
-        throwButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                makeThrow();
-            }
+        throwButton.addActionListener(e -> {
+
+            makeThrow();
+
         });
 
-        refreshStatisticsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                refreshStatistics();
-            }
+        refreshStatisticsButton.addActionListener(e -> {
+
+            refreshStatistics();
+
         });
 
 
-        throwButtonVsComputer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                makeThrowVsComputer(playerDicePack, computerDicePack);
-            }
+        throwButtonVsComputer.addActionListener(e -> {
+
+            makeThrowVsComputer(playerDicePack, computerDicePack);
+
         });
 
-        startGameVsComputerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                playerDicePack = new DicePack();
-                computerDicePack = new DicePack();
-                throwButtonVsComputer.setVisible(true);
-                startGameVsComputerButton.setVisible(false);
-                playerDicesArea.setText("");
-                computerDicesArea.setText("");
-                resultMessage.setText("");
-                playerTotal.setText("0");
-                computerTotal.setText("0");
-            }
+        startGameVsComputerButton.addActionListener(e -> {
+
+            playerDicePack = new DicePack();
+            computerDicePack = new DicePack();
+            throwButtonVsComputer.setVisible(true);
+            startGameVsComputerButton.setVisible(false);
+            playerDicesArea.setText("");
+            computerDicesArea.setText("");
+            resultMessage.setText("");
+            playerTotal.setText("0");
+            computerTotal.setText("0");
+
         });
 
         initGUI();
 
         startClient();
-
 
 
     }
@@ -345,29 +322,29 @@ public class ClientHandlerGUI extends Thread {
         sendToServer(cst);
     }
 
-    public void refreshStatistics(){
+    public void refreshStatistics() {
         ClientServerTransfer cst = new ClientServerTransfer();
         cst.setRequestActionPlayer(RequestPlayerAction.REFRESH_STATISTICS);
         cst.setIdPlayer(idClient);
         sendToServer(cst);
     }
 
-    public void makeThrow(){
+    public void makeThrow() {
         ClientServerTransfer cst = new ClientServerTransfer();
         cst.setRequestActionPlayer(RequestPlayerAction.MAKE_THROW);
         cst.setIdPlayer(idClient);
         sendToServer(cst);
     }
 
-    public void makeThrowVsComputer(DicePack player, DicePack computer){
-        if (!player.isEmpty()){
+    public void makeThrowVsComputer(DicePack player, DicePack computer) {
+        if (!player.isEmpty()) {
             player.makeThrow();
             player.getDices().stream().forEach(dice -> playerDicesArea.append(dice.getValue() + " . "));
             player.countTotal();
             playerTotal.setText(String.valueOf(player.getTotal()));
             playerDicesArea.append("\n");
         } else {
-            while(!computer.isEmpty()){
+            while (!computer.isEmpty()) {
                 computer.makeThrow();
                 computer.getDices().stream().forEach(dice -> computerDicesArea.append(dice.getValue() + " . "));
                 computer.countTotal();
@@ -378,9 +355,9 @@ public class ClientHandlerGUI extends Thread {
 
             throwButtonVsComputer.setVisible(false);
             startGameVsComputerButton.setVisible(true);
-            if (player.getTotal() > computer.getTotal()){
+            if (player.getTotal() > computer.getTotal()) {
                 resultMessage.setText("WIN");
-            } else if(player.getTotal() < computer.getTotal()){
+            } else if (player.getTotal() < computer.getTotal()) {
                 resultMessage.setText("LOSS");
             } else resultMessage.setText("DRAW");
 
@@ -419,18 +396,18 @@ public class ClientHandlerGUI extends Thread {
         }
     }
 
-    public Consumer<ServerClientTransfer> sendMessageResponse(){
+    public Consumer<ServerClientTransfer> sendMessageResponse() {
         return sct -> {
             chatList.append(sct.getMessageChat() + "\n");
         };
     }
 
-    public Consumer<ServerClientTransfer> enterPlayersResponse(){
+    public Consumer<ServerClientTransfer> enterPlayersResponse() {
         return sct -> {
             refreshLists(sct);
             betLabel.setText(sct.getBet());
 
-            if(idClient.equals(sct.getIdPlayer())){
+            if (idClient.equals(sct.getIdPlayer())) {
                 enterTheGameButton.setVisible(false);
                 exitFromTheGameButton.setVisible(true);
 
@@ -445,12 +422,12 @@ public class ClientHandlerGUI extends Thread {
         };
     }
 
-    public Consumer<ServerClientTransfer> enterSpectatorsResponse(){
+    public Consumer<ServerClientTransfer> enterSpectatorsResponse() {
         return sct -> {
             refreshLists(sct);
             betLabel.setText(sct.getBet());
 
-            if(idClient.equals(sct.getIdPlayer())){
+            if (idClient.equals(sct.getIdPlayer())) {
 
                 enterTheGameButton.setVisible(false);
                 exitFromTheGameButton.setVisible(true);
@@ -466,19 +443,19 @@ public class ClientHandlerGUI extends Thread {
         };
     }
 
-    public Consumer<ServerClientTransfer> exitMultiplayerResponse(){
+    public Consumer<ServerClientTransfer> exitMultiplayerResponse() {
         return sct -> {
             refreshLists(sct);
         };
     }
 
-    public Consumer<ServerClientTransfer> setReadyResponse(){
+    public Consumer<ServerClientTransfer> setReadyResponse() {
         return sct -> {
             refreshLists(sct);
             plusBet.setVisible(false);
             minusBet.setVisible(false);
 
-            if (idClient.equals(sct.getIdPlayer())){
+            if (idClient.equals(sct.getIdPlayer())) {
 
                 readyButton.setVisible(false);
                 plusBet.setVisible(false);
@@ -489,13 +466,13 @@ public class ClientHandlerGUI extends Thread {
         };
     }
 
-    public Consumer<ServerClientTransfer> changeBetResponse(){
+    public Consumer<ServerClientTransfer> changeBetResponse() {
         return sct -> {
             betLabel.setText(sct.getBet());
         };
     }
 
-    public Consumer<ServerClientTransfer> refreshProfileResponse(){
+    public Consumer<ServerClientTransfer> refreshProfileResponse() {
         return sct -> {
             Player player = sct.getPlayer();
             nameProfile.setText(player.getNamePlayer());
@@ -508,18 +485,18 @@ public class ClientHandlerGUI extends Thread {
         };
     }
 
-    public Consumer<ServerClientTransfer> makeThrowResponse(){
-        return sct->{
-            sct.getPlayerList().stream().forEach(player1 -> System.out.print(player1.getIdPlayer()+ "...."));
+    public Consumer<ServerClientTransfer> makeThrowResponse() {
+        return sct -> {
+            sct.getPlayerList().stream().forEach(player1 -> System.out.print(player1.getIdPlayer() + "...."));
             System.out.println("idClient - " + idClient + " PlayerID " + sct.getIdPlayer());
-            if (idClient.equals(sct.getIdPlayer())){
+            if (idClient.equals(sct.getIdPlayer())) {
                 Player player = sct.getPlayerList().stream().filter(pl -> pl.getIdPlayer().equals(idClient)).findFirst().orElse(null);
                 DicePack dicePack = player.getDicePack();
-                if (!dicePack.isEmpty()){
+                if (!dicePack.isEmpty()) {
                     totalField.setText(String.valueOf(dicePack.getTotal()));
                     dicePack.getDices().stream().forEach(dice -> dicesValues.append(dice.getValue() + " . "));
                     dicesValues.append("\n");
-                } else{
+                } else {
                     throwButton.setVisible(false);
                 }
             }
@@ -528,23 +505,23 @@ public class ClientHandlerGUI extends Thread {
         };
     }
 
-    public Consumer<ServerClientTransfer> refreshStatisticsResponse(){
-        return sct->{
+    public Consumer<ServerClientTransfer> refreshStatisticsResponse() {
+        return sct -> {
             statisticsArea.setText("");
             List<Player> players = sct.getPlayerList();
             players.stream().forEach(player -> {
                 int percent = 0;
-                if (player.getGamesPlayed()!=0) percent = 100*player.getGamesWon()/player.getGamesPlayed();
+                if (player.getGamesPlayed() != 0) percent = 100 * player.getGamesWon() / player.getGamesPlayed();
                 statisticsArea.append(player.getNamePlayer() + "  |  " + player.getGamesPlayed() + "/" + player.getGamesWon() + "  |  " + percent + "%  |  " + player.getCashPlayer() + "$ \n");
             });
         };
     }
 
-    public void load(ResponsePlayerAction type, Consumer<ServerClientTransfer> handle){
+    public void load(ResponsePlayerAction type, Consumer<ServerClientTransfer> handle) {
         dispatch.put(type, handle);
     }
 
-    public void initDispatcher(){
+    public void initDispatcher() {
         load(ResponsePlayerAction.SEND_MESSAGE, sendMessageResponse());
         load(ResponsePlayerAction.ENTER_PLAYERS, enterPlayersResponse());
         load(ResponsePlayerAction.ENTER_SPECTATORS, enterSpectatorsResponse());
@@ -552,21 +529,21 @@ public class ClientHandlerGUI extends Thread {
         load(ResponsePlayerAction.SET_READY, setReadyResponse());
         load(ResponsePlayerAction.CHANGE_BET, changeBetResponse());
         load(ResponsePlayerAction.REFRESH_PROFILE, refreshProfileResponse());
-        load(ResponsePlayerAction.MAKE_THROW,makeThrowResponse());
+        load(ResponsePlayerAction.MAKE_THROW, makeThrowResponse());
         load(ResponsePlayerAction.REFRESH_STATISTICS, refreshStatisticsResponse());
     }
 
-    public void handle(ServerClientTransfer sct){
+    public void handle(ServerClientTransfer sct) {
         dispatch.get(sct.getResponsePlayerAction()).accept(sct);
     }
 
-    public void refreshLists(ServerClientTransfer sct){
+    public void refreshLists(ServerClientTransfer sct) {
         playersList.setText("");
         sct.getPlayerList().stream().forEach((p) -> {
             if (p.isReady()) playersList.append(" + ");
             playersList.append(p.getNamePlayer() + " / $" + p.getCashPlayer());
-            if(p.getDicePack()!=null){
-                playersList.append(" [" + p.getDicePack().getTotal()+ "] ");
+            if (p.getDicePack() != null) {
+                playersList.append(" [" + p.getDicePack().getTotal() + "] ");
             }
             playersList.append("\n");
         });
@@ -633,7 +610,7 @@ public class ClientHandlerGUI extends Thread {
         }
     }
 
-    public static void main(String[] args) throws UnknownHostException, IOException {
+    public static void main(String[] args) throws IOException {
         Socket clientSocket = new Socket(InetAddress.getLocalHost(), 8080);
         new ClientHandlerGUI(clientSocket);
 
