@@ -19,7 +19,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,6 +143,7 @@ public class ClientHandlerGUI extends Thread {
             if (passwordConfirmValidation(passwordRegisterField.getPassword(),passwordConfirmField.getPassword()) && loginRegisterValidation(loginRegisterField.getText())) {
                 registerAccount(nameRegisterField.getText(), loginRegisterField.getText(), passwordRegisterField.getPassword());
             } else {
+                loginRegisterField.setText("");
                 passwordRegisterField.setText("");
                 passwordConfirmField.setText("");
             }
@@ -488,8 +488,8 @@ public class ClientHandlerGUI extends Thread {
 
     public Consumer<ServerClientTransfer> makeThrowResponse() {
         return sct -> {
-            sct.getPlayerList().stream().forEach(player1 -> System.out.print(player1.getIdPlayer() + "...."));
-            System.out.println("idClient - " + idClient + " PlayerID " + sct.getIdPlayer());
+            //sct.getPlayerList().stream().forEach(player1 -> System.out.print(player1.getIdPlayer() + "...."));
+            //System.out.println("idClient - " + idClient + " PlayerID " + sct.getIdPlayer());
             if (idClient.equals(sct.getIdPlayer())) {
                 Player player = sct.getPlayerList().stream().filter(pl -> pl.getIdPlayer().equals(idClient)).findFirst().orElse(null);
                 DicePack dicePack = player.getDicePack();
