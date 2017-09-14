@@ -11,13 +11,14 @@ import by.bsu.mmf.badthrowgame.transferobject.ClientServerTransfer;
 import by.bsu.mmf.badthrowgame.transferobject.SCEnteringAccount;
 import by.bsu.mmf.badthrowgame.transferobject.ServerClientTransfer;
 
+import static by.bsu.mmf.badthrowgame.validation.RegisterValidation.*;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -140,7 +141,7 @@ public class ClientHandlerGUI extends Thread {
 
         registerButton.addActionListener(e -> {
 
-            if (Arrays.equals(passwordRegisterField.getPassword(), passwordConfirmField.getPassword())) {
+            if (passwordConfirmValidation(passwordRegisterField.getPassword(),passwordConfirmField.getPassword()) && loginRegisterValidation(loginRegisterField.getText())) {
                 registerAccount(nameRegisterField.getText(), loginRegisterField.getText(), passwordRegisterField.getPassword());
             } else {
                 passwordRegisterField.setText("");
